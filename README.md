@@ -76,35 +76,5 @@ Release & Rollback and remediate: Toggle the flag ON/OFF in your LaunchDarkly da
 
 Context Targeting: Change the User Tier dropdown in the app to "Enterprise" to see the rule-based targeting grant access to the AI. **by default, "Enterprise" users and "Standard" user with only User Key (ID) "alice-123" will have access, rest "Standard" users will recieve 🔒 [Access Denied]**
 
-Experimentation: Click "Send to AI" with a few different User Keys. The app tracks the click and flushes the data instantly. Check the "Exposures" tab in your LD Experiment to see the telemetry data.
-
-### Flow chart Diagram
-
-               [ Start ]
-                   │
-                   ▼
-┌──────────────────────────────────────────────┐
-│            Create Feature Flag               │
-│ - Flag Key: "enable-ai-chatbot" (Boolean)    │
-└──────────────────┬───────────────────────────┘
-                   │
-         ┌─────────┼────────────────────────┐
-         │         │                        │
-         ▼         ▼                        ▼
-┌──────────────┐ ┌────────────────────┐ ┌──────────────────────┐
-│  USE CASE 1  │ │     USE CASE 2     │ │     EXTRA CREDIT     │
-│  Release,    │ │     Targeting      │ │    Experimentation   │
-│  Rollback &  │ │                    │ └────────┬─────────────┘
-│  Remediate   │ │                    │          │
-└────────┬─────┘ └─────────┬──────────┘          ├─► [Create Metric]
-         │                 │                     │   Key: ai-chat-used
-         ├─► [Release]     ├─► [Rule Targeting]  │   Def: Count
-         │   ON ──► ✅      │   Default ──► ❌     │
-         │                 │   Enterprise ──► ✅  ├─► [Create Experiment]
-         ├─► [Rollback]    │                     │   Use "enable-ai-chatbot"
-         │   OFF ──► 🔒     ├─► [Ind. Targeting]  │
-         │                 │   User: alice-123   ├─► [Start Iteration]
-         └─► [Remediate]   │   ──► ✅             │   Measure usage 🚀
-             Trigger URL   └────────────────────┘ 
-             curl ──► Auto OFF 🚨
+Experimentation: Click "Send to AI" with a few different User Keys (User Tier must be "Enterprise"). The app tracks the click and flushes the data instantly. Check the "Exposures" tab in your LD Experiment to see the telemetry data.
 
