@@ -1,0 +1,4 @@
+flask
+launchdarkly-server-sdk
+langchain-google-genai
+tenacity
